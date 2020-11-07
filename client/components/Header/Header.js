@@ -200,6 +200,16 @@ ToolUser.propTypes = {
   imageUrl: PropTypes.any
 };
 
+const menu = (
+  <Menu className="dropdown-apps">
+    <Menu.Item key="0"><a href="https://jira.flwha.com">JIRA</a></Menu.Item>
+    <Menu.Item key="1"><a href="https://doc.flwha.com">Confluence</a></Menu.Item>
+    <Menu.Item key="2"><a href="https://git.flwha.com">GitLab</a></Menu.Item>
+    <Menu.Item key="3" className="active"><a href="https://yapi.flwha.com">Yapi</a></Menu.Item>
+    <Menu.Item key="4"><a href="https://jira.flwha.com/secure/MyJiraHome.jspa">运营后台</a></Menu.Item>
+  </Menu>
+);
+
 @connect(
   state => {
     return {
@@ -296,15 +306,14 @@ export default class HeaderCom extends Component {
     const { login, user, msg, uid, role, studyTip, study, imageUrl } = this.props;
     return (
       <Header className="header-box m-header">
-        <div className="content g-row">
+        <Dropdown overlay={menu} trigger={['click']}>
+          <a className="ant-dropdown-link" onClick={e => e.preventDefault()}></a>
+        </Dropdown>
+        <div className="content">
           <Link onClick={this.relieveLink} to="/group" className="logo">
-            <div className="href">
-              <span className="img">
-                <LogoSVG length="32px" />
-              </span>
-            </div>
+            <LogoSVG length="30px" />
+            <Breadcrumb />
           </Link>
-          <Breadcrumb />
           <div
             className="user-toolbar"
             style={{ position: 'relative', zIndex: this.props.studyTip > 0 ? 3 : 1 }}
